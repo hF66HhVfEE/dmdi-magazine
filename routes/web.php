@@ -15,6 +15,7 @@ Route::get('/', function () {
 // Multilingual Frontend Routes
 Route::get('/{locale}', [HomeController::class, 'index'])->where('locale', 'id|en');
 Route::get('/{locale}/article/{slug}', [FrontendController::class, 'showArticle'])->where('locale', 'id|en');
+Route::get('/{locale}/category/{slug}', [FrontendController::class, 'showCategory'])->where('locale', 'id|en');
 
 // Admin Auth Routes
 Route::get('/admin/login', [AuthController::class, 'showLogin'])->name('admin.login');

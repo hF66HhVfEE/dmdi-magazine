@@ -23,9 +23,15 @@ class FrontendController extends Controller
         return view('frontend.article', compact('article', 'relatedArticles', 'locale'));
     }
 
-    public function showCategory($locale, $category)
+    public function showCategory($locale, $slug)
     {
-        // Will implement category pages later
-        return "Category page for: " . $category . " in " . $locale;
+        $category = Category::where('slug', $slug)->where('is_active', true)->firstOrFail();
+        
+        $articles = Article::where('category_id', $category->id)
+                          ->where('is_published', true)
+                          ->orderBy('created_at', 'desc')
+                          ->paginate(12);
+
+        return view('frontend.category', compact('category', 'articles', 'locale'));
     }
 }
